@@ -1,11 +1,16 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 interface todoTasks {
-    todos: string[]
+    id: number,
+    todo: string
 }
 
-const initialState: todoTasks = {
-    todos: ['']
+interface todoApp {
+    todos: todoTasks[]
+}
+
+const initialState: todoApp = {
+    todos: []
 }
 
 const tasksSlice = createSlice({
@@ -13,7 +18,11 @@ const tasksSlice = createSlice({
     initialState,
     reducers: {
         addTasks: (state, action: PayloadAction<string>) => {
-            state.todos.push(action.payload)
+            const newTodo: todoTasks = {
+                todo: action.payload,
+                id: Date.now()
+            }
+            state.todos.push(newTodo)
         }
     }
 })

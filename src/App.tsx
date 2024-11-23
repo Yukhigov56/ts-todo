@@ -29,8 +29,8 @@ function App() {
       />
       <button onClick={handleAddTasks}>Add tasks</button>
 
-      {tasks.map((item, index) => (
-        <p key={index}>{item}</p>
+      {tasks.map((item) => (
+        <p key={item.id}>{item.todo}</p>
       ))}
     </div>
   );
