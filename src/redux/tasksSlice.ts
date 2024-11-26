@@ -10,7 +10,7 @@ interface todoApp {
 }
 
 const initialState: todoApp = {
-    todos: []
+    todos: JSON.parse(localStorage.getItem("todos") || "[]"),
 }
 
 const tasksSlice = createSlice({
@@ -23,10 +23,16 @@ const tasksSlice = createSlice({
                 id: Date.now()
             }
             state.todos.push(newTodo)
+            localStorage.setItem("todos", JSON.stringify(state.todos))
+        },
+
+        removeTasks: (state, action: PayloadAction<number>) => {
+            state.todos = state.todos.filter((todo) => todo.id !== action.payload)
+            localStorage.setItem("todos", JSON.stringify(state.todos))
         }
     }
 })
 
 
-export const { addTasks } = tasksSlice.actions
+export const { addTasks, removeTasks } = tasksSlice.actions
 export default tasksSlice.reducer

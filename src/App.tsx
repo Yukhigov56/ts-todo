@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { RootState } from "./redux/store";
-import { addTasks } from "./redux/tasksSlice";
+import { addTasks, removeTasks } from "./redux/tasksSlice";
 import { useState } from "react";
 
 function App() {
@@ -20,6 +20,10 @@ function App() {
     }
   };
 
+  const handleRemoveTasks = (id: number) => {
+    dispatch(removeTasks(id));
+  };
+
   return (
     <div>
       <input
@@ -30,7 +34,12 @@ function App() {
       <button onClick={handleAddTasks}>Add tasks</button>
 
       {tasks.map((item) => (
-        <p key={item.id}>{item.todo}</p>
+        <div>
+          <p key={item.id}>
+            {item.todo}
+            <button onClick={() => {handleRemoveTasks(item.id);}}>Удалить</button>
+          </p>
+        </div>
       ))}
     </div>
   );
